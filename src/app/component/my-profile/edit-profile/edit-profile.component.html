@@ -1,0 +1,76 @@
+<div class="alert alert-danger" *ngIf="incorrectPassword">
+  <strong>Incorrect Password!</strong> Please enter the correct password for the current user.
+</div>
+<div class="alert alert-success" *ngIf="updateSuccess">
+  <strong>Update Success!</strong>
+</div>
+<form [formGroup]="profileForm" (ngSubmit)="onUpdateUserInfo()">
+
+  <input type="hidden" formControlName="id">
+
+  <div class="row">
+    <div class="col-xs-12">
+      <mat-form-field>
+        <input matInput type="text" formControlName="firstName" placeholder="FirstName">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <mat-form-field>
+        <input matInput="" type="text" formControlName="lastName" placeholder="LastName">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <mat-form-field>
+        <input matInput type="text" formControlName="username" placeholder="Username">
+      </mat-form-field>
+      <span class="help-block" *ngIf="usernameExists">Username already exists. Please choose another</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <mat-form-field>
+        <input matInput type="password" formControlName="currentPassword" placeholder="Current Password">
+      </mat-form-field>
+      <span class="help-block" *ngIf="userService.isInCorrectCurrentPassword()">Please Enter Valid Password</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <mat-form-field>
+        <input matInput type="password" formControlName="newPassword" placeholder="New Password">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <mat-form-field>
+        <input matInput type="password" placeholder="Confirm New Password">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <mat-form-field>
+        <input matInput type="email" placeholder="Email" formControlName="email">
+      </mat-form-field>
+     <span class="help-block">A valid e-mail address. All e-mails from the system will be sent to this address</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <button mat-raised-button type="submit" color="primary">Submit</button>
+    </div>
+  </div>
+
+</form>

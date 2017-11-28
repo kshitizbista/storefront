@@ -1,0 +1,60 @@
+<div class="container">
+  <app-banner></app-banner>
+  <div class="row" style="margin-top: 30px">
+    <div class="col-xs-3">
+    </div>
+    <div class="col-xs-9">
+        <div class="panel panel-default" style="border: none">
+          <div class="panel-body" style="background-color: lightpink; margin-top:20px;">
+            <mat-tab-group>
+
+              <mat-tab label="Login">
+                <div *ngIf="loggingError()" style="color:red;">
+                  Incorrect username or password.
+                </div>
+                <form #loginForm="ngForm" (ngSubmit)="onLogin()">
+                  <mat-form-field>
+                    <input matInput name="username" placeholder="Username" required ngModel>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput name="password" type="password" placeholder="password" required ngModel>
+                  </mat-form-field>
+                  <button mat-raised-button type="submit" color="primary">Log In</button>
+                </form>
+              </mat-tab>
+
+              <mat-tab label="New Account">
+                <div class="alert alert-info" *ngIf="userService.isEmailSent()">An email has been sent to the email address you just registered.
+                  Please validate your email adderss and update your password info.</div>
+                <form (ngSubmit)="onNewAccount()" #newAccountForm="ngForm">
+                  <mat-form-field>
+                    <input matInput placeholder="Username" name="username" required ngModel>
+                  </mat-form-field>
+                  <span *ngIf="userService.doUsernameExists()" style="color:red;">Username already exists. Choose a different one.</span>
+                  <mat-form-field>
+                    <input matInput placeholder="Email" name="email" required ngModel>
+                  </mat-form-field>
+                  <span *ngIf="userService.doEmailExists()" style="color:red;">Email already exists. Choose a different one.</span>
+                  <p style="color:#828282;">A valid e-mail address. All e-mails from the system will be sent to this address.</p>
+                  <button mat-raised-button type="submit" color="primary">Create New Account</button>
+                </form>
+              </mat-tab>
+
+              <mat-tab label="Forgot Password">
+                <div class="alert alert-warning" *ngIf="userService.doEmailNotExists()">Email doesn't exists.</div>
+                <div class="alert alert-success" *ngIf="userService.isForgetPswEmailSent()">Email sent.</div>
+                <form (ngSubmit)="onForgotPassword()" #forgotPasswordForm="ngForm">
+                  <mat-form-field>
+                    <input matInput ngModel name="recoverEmail" placeholder="Email" required>
+                  </mat-form-field>
+                  <button mat-raised-button type="submit" color="primary">Submit</button>
+                </form>
+              </mat-tab>
+
+            </mat-tab-group>
+          </div>
+        </div>
+    </div>
+  </div>
+
+</div>
